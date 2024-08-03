@@ -19,4 +19,4 @@ aws cloudformation deploy \
     --capabilities CAPABILITY_NAMED_IAM
 ```
 
-![create_ec2](./assets/gif/create_ec2.gif)
+![create_ec2](./assets/gif/create_ec2_demo.gif)
