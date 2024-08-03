@@ -1,0 +1,134 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  ENV:
+    Type: String
+    Default: dev
+
+  SYS:
+    Type: String
+    Default: raisetech
+
+  AMIID:
+    Type: String
+    Default: ami-0a666a6dee681853e
+    Description: "Enter the AMI ID for your instance. Default is Amazon Linux 2 AMI."
+
+Resources:
+  VPC:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: "10.0.0.0/16"
+      EnableDnsSupport: true
+      InstanceTenancy: "default"
+      EnableDnsHostnames: true
+      Tags:
+        - Value: !Sub ${ENV}-${SYS}-vpc
+          Key: "Name"
+
+  InternetGateway:
+    Type: "AWS::EC2::InternetGateway"
+    Properties:
+      Tags:
+        - Value: !Sub ${ENV}-${SYS}-igw
+          Key: "Name"
+
+  GatewayAttachment:
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
+
+  Subnet:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId:
+        Ref: "VPC"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "apne1-az1"
+      CidrBlock: "10.0.16.0/20"
+      Tags:
+        - Value: !Sub ${ENV}-${SYS}-pubsubnet
+          Key: "Name"
+
+  RouteTable:
+    Type: "AWS::EC2::RouteTable"
+    Properties:
+      VpcId: !Ref "VPC"
+      Tags:
+        - Value: !Sub ${ENV}-${SYS}-rtb
+          Key: "Name"
+
+  Route:
+    Type: "AWS::EC2::Route"
+    Properties:
+      GatewayId: !Ref InternetGateway
+      DestinationCidrBlock: "0.0.0.0/0"
+      RouteTableId: !Ref RouteTable
+
+  SubnetRouteTableAssociation:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref Subnet
+
+  IAMRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Path: "/"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AdministratorAccess"
+      MaxSessionDuration: 3600
+      RoleName: !Sub ${ENV}-${SYS}-role
+      Description: "Allows EC2 instances to call AWS services on your behalf."
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Action: "sts:AssumeRole"
+            Effect: "Allow"
+            Principal:
+              Service: "ec2.amazonaws.com"
+
+  IAMInstanceProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Path: "/"
+      Roles:
+        - !Ref "IAMRole"
+      InstanceProfileName: !Ref "IAMRole"
+
+  EC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      IamInstanceProfile: !Ref "IAMInstanceProfile"
+      SubnetId: !Ref "Subnet"
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup
+      ImageId: !Ref AMIID
+      InstanceType: "t2.micro"
+      Monitoring: false
+      Tags:
+        - Value: !Sub ${ENV}-${SYS}-ec2
+          Key: "Name"
+
+  EC2SecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Allow SSH"
+      GroupName: !Sub ${ENV}-${SYS}-ec2-sg
+      VpcId:
+        Ref: "VPC"
+      SecurityGroupIngress:
+        - CidrIp: "0.0.0.0/0"
+          IpProtocol: "tcp"
+          FromPort: 22
+          ToPort: 22
+      SecurityGroupEgress:
+        - CidrIp: "0.0.0.0/0"
+          IpProtocol: "-1"
+          FromPort: -1
+          ToPort: -1
+      Tags:
+        - Value: !Sub ${ENV}-${SYS}-ec2-sg
+          Key: "Name"
