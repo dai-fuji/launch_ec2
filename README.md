@@ -1,16 +1,25 @@
 # EC2 インスタンス起動用テンプレート（Cloud9 新規受付停止対応）
 
-## 概要
+## はじめに
 
-- Cloud9 のコンソールで起動した AL2 のインスタンスから
-- AWS CloudFormation と`template.yaml`を利用します。
-- Cloud9 同様、Ruby や Git などがプリインストールされているため、環境構築
+- Cloud9 の新規受付停止に伴い、第 3 回までの課題で利用を想定した
+-
+- 本手順を利用せずに
+  > [!NOTE]
+  > 本手順で EC2 インスタンスを起動するために利用する AWS サービス
+  >
+  > - CloudShell
+  > - CloudFormation
 
 ## 利用方法
 
-1. CloudShell を開く
-2. アクションから、ファイルのアップロードをクリックし、`template.yaml`をアップロードする
-3. 以下のコマンドを CloudShell に貼り付け、Enter をタイプする
+### ① 作成する
+
+> [!NOTE]
+> 以下に記載されているファイルを事前にダウンロードしておいてください。
+
+- アップロードするファイル [template.yaml](./template.yaml)
+- 利用するコマンド
 
 ```bash
 aws cloudformation deploy \
@@ -20,3 +29,25 @@ aws cloudformation deploy \
 ```
 
 ![create_ec2](./assets/gif/create_ec2_demo.gif)
+
+### ② 作成されたことを確認する
+
+![create_ec2](./assets/gif/check_stack_demo.gif)
+
+### ③EC2 に接続する
+
+> [!NOTE]
+> AWS Systems Manager のセッションマネージャと呼ばれる機能を利用して接続しています。
+
+![create_ec2](./assets/gif/connect_ec2_demo.gif)
+
+> [!TIP]
+> EC2 インスタンスは停止しておくことで料金の発生（無料枠の消費）を抑えることができます。
+
+### VSCode から接続する
+
+後日更新予定（SSH プラグイン利用方法）
+
+## 補足事項
+
+- Cloud9 で作成した AL2 のインスタンスのイメージを使用しています。
