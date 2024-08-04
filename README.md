@@ -49,7 +49,9 @@ aws cloudformation deploy \
 ![create_ec2](./assets/gif/connect_ec2_demo.gif)
 
 > [!TIP]
-> EC2 インスタンスは停止しておくことで料金の発生（無料枠の消費）を抑えることができます。
+>
+> - EC2 インスタンスは停止しておくことで料金の発生（無料枠の消費）を抑えることができます。
+> - シェルの操作は補助教材`CLIの基礎`を活用ください。
 
 ### VSCode から接続する
 
