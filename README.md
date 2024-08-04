@@ -34,6 +34,9 @@ aws cloudformation deploy \
 
 ![create_ec2](./assets/gif/create_ec2_demo.gif)
 
+> [!NOTE]
+> 作成が完了するまで数分かかります。
+
 ### ② 正常に作成されたことを確認する
 
 ![create_ec2](./assets/gif/check_stack_demo.gif)
