@@ -2,14 +2,15 @@
 
 ## はじめに
 
-- Cloud9 の新規受付停止に伴い、第 3 回までの課題で利用を想定した
--
-- 本手順を利用せずに
-  > [!NOTE]
-  > 本手順で EC2 インスタンスを起動するために利用する AWS サービス
-  >
-  > - CloudShell
-  > - CloudFormation
+- 第 3 回までの課題で利用する EC2 インスタンスを作成する手順です。
+- 本手順で起動する EC2 インスタンスは Cloud9 で起動した AmazonLinux2 のインスタンスからイメージを作成しています。
+- 本手順の利用は任意です。
+
+> [!NOTE]
+> 本手順で EC2 インスタンスを起動するために利用する AWS サービス
+>
+> - CloudShell
+> - CloudFormation
 
 ## 利用方法
 
@@ -30,11 +31,11 @@ aws cloudformation deploy \
 
 ![create_ec2](./assets/gif/create_ec2_demo.gif)
 
-### ② 作成されたことを確認する
+### ② 正常に作成されたことを確認する
 
 ![create_ec2](./assets/gif/check_stack_demo.gif)
 
-### ③EC2 に接続する
+### ③ EC2 に接続する
 
 > [!NOTE]
 > AWS Systems Manager のセッションマネージャと呼ばれる機能を利用して接続しています。
@@ -47,7 +48,3 @@ aws cloudformation deploy \
 ### VSCode から接続する
 
 後日更新予定（SSH プラグイン利用方法）
-
-## 補足事項
-
-- Cloud9 で作成した AL2 のインスタンスのイメージを使用しています。
