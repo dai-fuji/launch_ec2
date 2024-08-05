@@ -78,7 +78,7 @@ Resources:
     Properties:
       Path: "/"
       ManagedPolicyArns:
-        - "arn:aws:iam::aws:policy/AdministratorAccess"
+        - "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
       MaxSessionDuration: 3600
       RoleName: !Sub ${ENV}-${SYS}-role
       Description: "Allows EC2 instances to call AWS services on your behalf."
