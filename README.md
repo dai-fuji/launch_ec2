@@ -20,10 +20,11 @@
 > 本手順はすべて、東京リージョンで実行すること。
 
 > [!NOTE]
-> 以下に記載されているファイルを事前にダウンロードしておいてください。
+> 以下に記載されているファイルを事前にダウンロードしておいてください。  
+> アップロードするファイル： [template.yaml](./template.yaml)
 
-- アップロードするファイル [template.yaml](./template.yaml)
-- 利用するコマンド
+- CloudShell を開く
+- 以下のコマンドをコピー&ペーストして実行する
 
 ```bash
 aws cloudformation deploy \
