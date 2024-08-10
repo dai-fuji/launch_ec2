@@ -14,10 +14,10 @@
 
 ## 利用方法
 
+### ① 作成する
+
 > [!IMPORTANT]
 > 本手順はすべて、東京リージョンで実行すること。
-
-### ① 作成する
 
 > [!NOTE]
 > 以下に記載されているファイルを事前にダウンロードしておいてください。
@@ -39,20 +39,27 @@ aws cloudformation deploy \
 
 ### ② 正常に作成されたことを確認する
 
-![create_ec2](./assets/gif/check_stack_demo.gif)
+- CloudShell に`Successfully`と表示されることを確認
+- CloudFormation のコンソールを開く
+- sample-stack のステータスが`CREATE_COMPLETE`であることを確認
+  ![create_ec2](./assets/gif/check_stack_demo.gif)
 
 ### ③ EC2 に接続する
 
-> [!NOTE]
-> AWS Systems Manager のセッションマネージャと呼ばれる機能を利用して接続しています。
-
-![create_ec2](./assets/gif/connect_ec2_demo.gif)
+- EC2 のコンソールを開く
+- `dev-rasetech-ec2`を選択し、`接続`からセッションマネージャで接続する
+- `sudo su ec2-user`でユーザを切り替える
+- `cd ~`でホームディレクトリに移動する
+- `ruby -v`で ruby が利用できる状態であることを確認する
+- `git- v`で git が利用できる状態であることを確認する
+  ![create_ec2](./assets/gif/connect_ec2_demo.gif)
 
 > [!TIP]
 >
-> - EC2 インスタンスは停止しておくことで料金の発生（無料枠の消費）を抑えることができます。
 > - シェルの操作は補助教材`CLIの基礎`を活用ください。
+> - `cd`コマンドや`ls`コマンドの意味が分からない方は必ず`CLIの基礎`で事前学習するようにしてください。
+> - EC2 インスタンスは停止しておくことで料金の発生（無料枠の消費）を抑えることができます。
 
-### VSCode から接続する
+### VSCode で接続する
 
 後日更新予定（SSH プラグイン利用方法）
