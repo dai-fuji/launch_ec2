@@ -10,7 +10,8 @@
 > 本手順で EC2 インスタンスを起動するために利用する AWS サービス
 >
 > - CloudShell
-> - CloudFormation
+> - CloudFormation  
+>   ※これらのサービスについて、現段階で理解する必要はありません。（CloudShell はカリキュラム内では扱いませんが、CloudFormation は第 10 回で学習します。）
 
 ## 利用方法
 
@@ -24,6 +25,7 @@
 > アップロードするファイル： [template.yaml](./template.yaml)
 
 - CloudShell を開く
+- `template.yaml`をアップロードする
 - 以下のコマンドをコピー&ペーストして実行する
 
 ```bash
@@ -40,9 +42,9 @@ aws cloudformation deploy \
 
 ### ② 正常に作成されたことを確認する
 
-- CloudShell に`Successfully`と表示されることを確認
+- CloudShell に`Successfully`と表示されることを確認する
 - CloudFormation のコンソールを開く
-- sample-stack のステータスが`CREATE_COMPLETE`であることを確認
+- sample-stack のステータスが`CREATE_COMPLETE`であることを確認する
   ![create_ec2](./assets/gif/check_stack_demo.gif)
 
 ### ③ EC2 に接続する
