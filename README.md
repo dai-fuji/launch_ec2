@@ -22,15 +22,15 @@
 
 > [!NOTE]
 > 以下に記載されているファイルを事前にダウンロードしておいてください。  
-> アップロードするファイル： [template.yaml](./template.yaml)
+> アップロードするファイル： [template.yml](./template.yml)
 
 - CloudShell を開く
-- `template.yaml`をアップロードする
+- `template.yml`をアップロードする
 - 以下のコマンドをコピー&ペーストして実行する
 
 ```bash
 aws cloudformation deploy \
-    --template-file template.yaml \
+    --template-file template.yml \
     --stack-name sample-stack \
     --capabilities CAPABILITY_NAMED_IAM
 ```
@@ -44,7 +44,7 @@ aws cloudformation deploy \
 
 - CloudShell に`Successfully`と表示されることを確認する
 - CloudFormation のコンソールを開く
-- sample-stack のステータスが`CREATE_COMPLETE`であることを確認する
+- sample-stack のステータスが`CREATE_COMPLETE`であることを確認する  
   ![create_ec2](./assets/gif/check_stack_demo.gif)
 
 ### ③ EC2 に接続する
@@ -54,7 +54,7 @@ aws cloudformation deploy \
 - `sudo su ec2-user`でユーザを切り替える
 - `cd ~`でホームディレクトリに移動する
 - `ruby -v`で ruby が利用できる状態であることを確認する
-- `git- v`で git が利用できる状態であることを確認する
+- `git- v`で git が利用できる状態であることを確認する  
   ![create_ec2](./assets/gif/connect_ec2_demo.gif)
 
 > [!TIP]
@@ -63,6 +63,62 @@ aws cloudformation deploy \
 > - `cd`コマンドや`ls`コマンドの意味が分からない方は必ず`CLIの基礎`で事前学習するようにしてください。
 > - EC2 インスタンスは停止しておくことで料金の発生（無料枠の消費）を抑えることができます。
 
-### VSCode で接続する
+## [番外編]VSCode で接続する
 
-後日更新予定（SSH プラグイン利用方法）
+- VS Code 及び拡張機能を利用することで、以下の画像のように Cloud9 のような GUI での操作が可能になります。
+- コマンド操作に慣れていない方でも直感的に操作することができます。
+- こちらの手順を利用した場合もセッションマネージャによる接続は継続して利用ができます。
+  ![利用イメージ](./assets/img/used-vscode.png)
+
+> [!IMPORTANT]
+> 既に[利用方法](#利用方法)の手順で構築をしている場合、こちらの手順を実行すると、EC2 インスタンスは新しい EC2 インスタンスに置き換わります。（最初に起動したものは削除され、新しいものが起動されます。）
+
+### ① キーペアを作成する
+
+- EC2 コンソール画面からキーペアを選択する。
+  ![キーペア作成画面の場所](./assets/img/create-keypair01.png)
+- 任意の名前を入力し、キーペアを作成する。
+  ![キーペア作成実施](./assets/img/create-keypair02.png)
+
+- ダウンロードしたキーを`~/.ssh/`配下に保存し、以下のコマンドを実行して権限設定を変更する。（WindowsOS の場合、コマンド実行不要）
+
+```bash
+chmod 400 ~/.ssh/XXXXXXXXX.pem
+```
+
+### ② キーペアを指定して環境構築を行う
+
+- [利用方法](#利用方法)の ① のコマンドを以下に置き換えて実行する。
+- ① で作成したキーペアの名前が必要になります。
+
+```bash
+aws cloudformation deploy \
+    --template-file template.yml \
+    --stack-name sample-stack \
+    --capabilities CAPABILITY_NAMED_IAM \
+    --parameter-overrides KEYPAIRNAME=<キーペアの名前>
+```
+
+> [!NOTE]
+> <キーペアの名前>の<>は入力しないでください。  
+> 入力例）  
+> --parameter-overrides KEYPAIRNAME=dev-raisetech-kypr
+
+### ③VS Code で SSH 拡張機能をインストール
+
+- VS Code を開いて、`Remote-SSH`をインストールする。
+  ![remote-sshインストール](./assets/img/install-remotessh.png)
+
+### ④ 拡張機能を使って接続する
+
+- [公式ドキュメント](https://code.visualstudio.com/docs/remote/ssh)を参照して、進めてください。
+- 本機能の利用については、個人ブログも多数投稿されていますので、必要に応じてそれらも活用しましょう。
+
+> [!NOTE]
+> 一定時間操作がないと、自動的に SSH 接続は切断されます。
+> これを延長する方法もありますので、調べて対応してみてください。
+
+### 最後に
+
+本機能は広く知られているものであり、手順の中にも記載しましたが、多数の個人ブログの投稿がされています。③ の手順以降、多少躓いたとしても、WEB 検索を活用することで多くの場合解消できるものと推測できますので、質問投稿にまず自身で対応を試みてみましょう！  
+もちろん質問はいつでも受け付けていますので、お気軽に活用ください。

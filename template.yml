@@ -14,6 +14,17 @@ Parameters:
     Default: ami-0a666a6dee681853e
     Description: "Enter the AMI ID for your instance. Default is Amazon Linux 2 AMI."
 
+  KEYPAIRNAME:
+    Type: String
+    Description: "Required if you would like to use SSH-Plugin with VS-Code"
+    Default: xxxxx
+
+Conditions:
+  IsValidKeypair:
+    Fn::And:
+      - Fn::Not: [Fn::Equals: [!Ref KEYPAIRNAME, ""]]
+      - Fn::Not: [Fn::Equals: [!Ref KEYPAIRNAME, "xxxxx"]]
+
 Resources:
   VPC:
     Type: "AWS::EC2::VPC"
@@ -107,6 +118,7 @@ Resources:
         - !Ref EC2SecurityGroup
       ImageId: !Ref AMIID
       InstanceType: "t2.micro"
+      KeyName: !If [IsValidKeypair, !Ref KEYPAIRNAME, !Ref "AWS::NoValue"]
       Monitoring: false
       Tags:
         - Value: !Sub ${ENV}-${SYS}-ec2
@@ -124,6 +136,18 @@ Resources:
           IpProtocol: "tcp"
           FromPort: 22
           ToPort: 22
+        - CidrIp: "0.0.0.0/0"
+          IpProtocol: "tcp"
+          FromPort: 80
+          ToPort: 80
+        - CidrIp: "0.0.0.0/0"
+          IpProtocol: "tcp"
+          FromPort: 8080
+          ToPort: 8080
+        - CidrIp: "0.0.0.0/0"
+          IpProtocol: "tcp"
+          FromPort: 3000
+          ToPort: 3000
       SecurityGroupEgress:
         - CidrIp: "0.0.0.0/0"
           IpProtocol: "-1"
