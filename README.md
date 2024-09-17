@@ -63,6 +63,36 @@ aws cloudformation deploy \
 > - `cd`コマンドや`ls`コマンドの意味が分からない方は必ず`CLIの基礎`で事前学習するようにしてください。
 > - EC2 インスタンスは停止しておくことで料金の発生（無料枠の消費）を抑えることができます。
 
+## EC2 を Terminate（終了）してしまったら
+
+- 誤って EC2 を Terminate（終了）してしまった場合は再度同じ手順で EC2 を起動してください。
+- ただし、同名の CloudFormation スタックは存在することはできないため、スタックの削除が必要です。
+- 以下にスタックの削除方法を 2 種類紹介します。
+
+### 方法 ① CloudShell で削除コマンドを実行する
+
+- CloudShell を開く
+- 以下のコマンドを実行してスタックを削除する
+
+```bash
+aws cloudformation delete-stack \
+    --stack-name sample-stack
+```
+
+- 以下のコマンドを実行し、レスポンスとして sample-stack の情報が出力されることを確認する
+
+```bash
+aws cloudformation list-stacks \
+    --stack-status-filter DELETE_COMPLETE
+```
+
+### 方法 ② CloudFormation コンソールからスタックを削除する
+
+- CloudFormation のコンソール画面を開く
+- 対象のスタック（sample-stack）を選択し、削除を選択する
+- スタックのステータスが`DELETE_COMPLETE`になったことを確認する
+  ![スタック削除](./assets/img/delete-stack-gui.png)
+
 ## [番外編]VSCode で接続する
 
 - VS Code 及び拡張機能を利用することで、以下の画像のように Cloud9 のような GUI での操作が可能になります。
