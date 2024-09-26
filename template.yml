@@ -11,7 +11,7 @@ Parameters:
 
   AMIID:
     Type: String
-    Default: ami-0a666a6dee681853e
+    Default: ami-0d5717b93050692a1
     Description: "Enter the AMI ID for your instance. Default is Amazon Linux 2 AMI."
 
   KEYPAIRNAME:
