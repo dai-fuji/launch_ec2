@@ -62,6 +62,7 @@ aws cloudformation deploy \
 > - シェルの操作は補助教材`CLIの基礎`を活用ください。
 > - `cd`コマンドや`ls`コマンドの意味が分からない方は必ず`CLIの基礎`で事前学習するようにしてください。
 > - EC2 インスタンスは停止しておくことで料金の発生（無料枠の消費）を抑えることができます。
+> - セッションマネージャにはアイドルタイムアウト機能が存在するため、一定時間操作がない状態が継続すると自動的に切断されます。タイムアウトの延長は[こちら](https://docs.aws.amazon.com/ja_jp/systems-manager/latest/userguide/session-preferences-timeout.html)を確認してください。
 
 ## EC2 を Terminate（終了）してしまったら
 
