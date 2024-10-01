@@ -20,7 +20,7 @@ $ sudo su ec2-user
 $ cd ~
 ```
 
-- 実行結果  
+- 期待する実行結果のサンプル  
   表示なし
 
 2. GPG キーのインストール
@@ -31,7 +31,7 @@ $ cd ~
 $ gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 ```
 
-- 実行結果サンプル
+- 期待期待する実行結果のサンプル
 
 ```bash
 gpg: directory `/home/ec2-user/.gnupg' created
@@ -58,7 +58,7 @@ gpg:               imported: 2  (RSA: 2)
 $ \curl -sSL https://get.rvm.io | bash
 ```
 
-- 実行結果サンプル
+- 期待する実行結果のサンプル
 
 ```bash
 Downloading https://github.com/rvm/rvm/archive/master.tar.gz
@@ -85,7 +85,7 @@ $ echo "source $HOME/.rvm/scripts/rvm" >> ~/.bash_profile
 $ source .bash_profile
 ```
 
-- 実行結果サンプル  
+- 期待する実行結果のサンプル  
   表示なし
 
 5. インストール完了確認
@@ -96,7 +96,7 @@ $ source .bash_profile
 $ rvm -v
 ```
 
-- 実行結果サンプル
+- 期待する実行結果のサンプル
 
 ```bash
 rvm 1.29.12-next (master) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
